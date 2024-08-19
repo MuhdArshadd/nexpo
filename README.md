@@ -1,6 +1,6 @@
-# nexpo
+# tourism_app
 
-nexpo project
+A new Flutter project.
 
 ## Getting Started
 

@@ -1,40 +1,13 @@
 import 'package:flutter/material.dart';
 
-class AttractionDetailPage extends StatefulWidget {
+class AttractionDetailPage extends StatelessWidget {
   const AttractionDetailPage({super.key});
-
-  @override
-  _AttractionDetailPageState createState() => _AttractionDetailPageState();
-}
-
-class _AttractionDetailPageState extends State<AttractionDetailPage> {
-  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('NEXPO'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              // TODO: Add login functionality
-            },
-            child: const Text(
-              'LOGIN',
-              style: TextStyle(color: Colors.black),
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              // TODO: Add register functionality
-            },
-            child: const Text(
-              'REGISTER',
-              style: TextStyle(color: Colors.black),
-            ),
-          ),
-        ],
+        title: const Text('Attraction Details'),
       ),
       body: Column(
         children: <Widget>[
@@ -56,20 +29,15 @@ class _AttractionDetailPageState extends State<AttractionDetailPage> {
                 DefaultTabController(
                   length: 3,
                   child: Column(
-                    children: [
+                    children: const [
                       TabBar(
-                        onTap: (index) {
-                          setState(() {
-                            _selectedIndex = index;
-                          });
-                        },
-                        tabs: const [
+                        tabs: [
                           Tab(text: 'Overview'),
                           Tab(text: 'Reviews'),
                           Tab(text: 'About'),
                         ],
                       ),
-                      const SizedBox(
+                      SizedBox(
                         height: 300,
                         child: TabBarView(
                           children: [
@@ -85,13 +53,6 @@ class _AttractionDetailPageState extends State<AttractionDetailPage> {
               ],
             ),
           ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.place), label: 'Attractions'),
-          BottomNavigationBarItem(icon: Icon(Icons.restaurant), label: 'Restaurants'),
         ],
       ),
     );
@@ -215,7 +176,8 @@ class ReviewCard extends StatelessWidget {
   final String review;
   final int rating;
 
-  const ReviewCard({super.key, 
+  const ReviewCard({
+    super.key,
     required this.username,
     required this.review,
     required this.rating,

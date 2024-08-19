@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'register_user.dart';
 import 'attraction_detail_page.dart';
 
 class AttractionPage extends StatelessWidget {
@@ -22,6 +23,10 @@ class AttractionPage extends StatelessWidget {
           TextButton(
             onPressed: () {
               // TODO: Add register functionality
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => RegisterUserPage()),
+              );
             },
             child: const Text(
               'REGISTER',
@@ -99,7 +104,7 @@ class AttractionCard extends StatelessWidget {
   final String title;
   final String distance;
 
-  const AttractionCard({super.key, 
+  const AttractionCard({super.key,
     required this.imageUrl,
     required this.title,
     required this.distance,
