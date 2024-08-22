@@ -4,6 +4,7 @@ import 'user_profile.dart';
 import 'register_user.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'calendar_main.dart';
+import 'map_popup.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -246,6 +247,7 @@ class HomePage extends StatelessWidget {
                       onTap: () {
                         // Handle click event for Sustainability Index
                         // For example, navigate to another page or show a dialog
+
                       },
                       child: Card(
                         elevation: 2,
@@ -272,7 +274,7 @@ class HomePage extends StatelessWidget {
                     // TODO: Add itinerary creation functionality
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => CalendarMainPage()),
+                      MaterialPageRoute(builder: (context) => MapPopupPage()),
                     );
                   },
                   style: ElevatedButton.styleFrom(

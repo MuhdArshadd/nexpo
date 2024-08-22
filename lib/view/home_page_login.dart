@@ -4,6 +4,7 @@ import 'user_profile.dart';
 import 'register_user.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'calendar_main.dart';
+import 'package:tourism_app/main.dart';
 
 class HomePageLogin extends StatelessWidget {
   const HomePageLogin({super.key});
@@ -17,6 +18,10 @@ class HomePageLogin extends StatelessWidget {
           TextButton(
             onPressed: () {
               // TODO: Add logout functionality
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MainPage()),
+              );
             },
             child: const Text(
               'LOGOUT',

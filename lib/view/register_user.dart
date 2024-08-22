@@ -20,7 +20,7 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
             children: [
               Center(
                 child: Text(
-                  'NEW USER',
+                  'Register',
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
               ),
