@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'register_user.dart';
+import 'login_user.dart';
 import 'attraction_detail_page.dart';
+import 'user_profile.dart';
 
 class AttractionPage extends StatelessWidget {
-  const AttractionPage({super.key});
+  final bool isLoggedIn;
+  final Function(bool) onLoginChanged;
+
+  const AttractionPage({super.key, required this.isLoggedIn, required this.onLoginChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -11,30 +16,61 @@ class AttractionPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('NEXPO'),
         actions: [
-          TextButton(
-            onPressed: () {
-              // TODO: Add login functionality
-            },
-            child: const Text(
-              'LOGIN',
-              style: TextStyle(color: Colors.black),
+          if (!isLoggedIn) ...[
+            TextButton(
+              onPressed: () async {
+                final result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                );
+
+                if (result == true) {
+                  onLoginChanged(true); // Update login state
+                }
+              },
+              child: const Text(
+                'LOGIN',
+                style: TextStyle(color: Colors.black),
+              ),
             ),
-          ),
-          TextButton(
-            onPressed: () {
-              // TODO: Add register functionality
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => RegisterUserPage()),
-              );
-            },
-            child: const Text(
-              'REGISTER',
-              style: TextStyle(color: Colors.black),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => RegisterUserPage()),
+                );
+              },
+              child: const Text(
+                'REGISTER',
+                style: TextStyle(color: Colors.black),
+              ),
             ),
-          ),
+          ] else ...[
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => UserProfilePage()),
+                );
+              },
+              child: const Text(
+                'PROFILE',
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                onLoginChanged(false); // Update login state to logged out
+              },
+              child: const Text(
+                'LOGOUT',
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+          ],
         ],
       ),
+      // The rest of the AttractionPage UI
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -98,6 +134,7 @@ class AttractionPage extends StatelessWidget {
     );
   }
 }
+
 
 class AttractionCard extends StatelessWidget {
   final String imageUrl;

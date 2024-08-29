@@ -31,12 +31,30 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
+  bool _isLoggedIn = false;
 
-  static final List<Widget> _widgetOptions = <Widget>[
-    const HomePage(),
-    const AttractionPage(),
-    //RestaurantPage(), // Assume you have a RestaurantPage
-  ];
+  static late List<Widget> _widgetOptions;
+
+  @override
+  void initState() {
+    super.initState();
+    _widgetOptions = <Widget>[
+      HomePage(isLoggedIn: _isLoggedIn, onLoginChanged: _handleLoginChanged),
+      AttractionPage(isLoggedIn: _isLoggedIn, onLoginChanged: _handleLoginChanged),
+      // RestaurantPage(isLoggedIn: _isLoggedIn, onLoginChanged: _handleLoginChanged), // Add the RestaurantPage when ready
+    ];
+  }
+
+  void _handleLoginChanged(bool isLoggedIn) {
+    setState(() {
+      _isLoggedIn = isLoggedIn;
+      _widgetOptions = <Widget>[
+        HomePage(isLoggedIn: _isLoggedIn, onLoginChanged: _handleLoginChanged),
+        AttractionPage(isLoggedIn: _isLoggedIn, onLoginChanged: _handleLoginChanged),
+        // RestaurantPage(isLoggedIn: _isLoggedIn, onLoginChanged: _handleLoginChanged), // Add the RestaurantPage when ready
+      ];
+    });
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -70,4 +88,3 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
-//changes

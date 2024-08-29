@@ -103,8 +103,25 @@ class UserProfilePage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 8.0),
-            _buildClickablePlace(context, "Castle X", Icons.castle_outlined),
-            _buildClickablePlace(context, "Mountain Y", Icons.terrain_rounded),
+            Column(
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.castle, color: Colors.grey),
+                  title: const Text('Castle X'),
+                  onTap: () {
+                    // TODO: Navigate to event details
+                  },
+                ),
+                const Divider(),
+                ListTile(
+                  leading: const Icon(Icons.terrain, color: Colors.brown),
+                  title: const Text('Mountain Y'),
+                  onTap: () {
+                    // TODO: Navigate to event details
+                  },
+                ),
+              ],
+            ),
             SizedBox(height: 24.0),
 
             // Favorite Places Section with clickable items
@@ -243,28 +260,6 @@ class UserProfilePage extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  // Widget to build clickable places in Recently Viewed Places and Favorite Places
-  Widget _buildClickablePlace(BuildContext context, String place, IconData icon) {
-    return GestureDetector(
-      onTap: () {
-        // Handle click for place, e.g., navigate to the place's page
-      },
-      child: Card(
-        child: ListTile(
-          leading: Icon(icon, size: 40, color: Colors.brown),
-          title: Text(
-            place,
-            style: TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          trailing: Icon(Icons.arrow_forward_ios, color: Colors.black),
         ),
       ),
     );

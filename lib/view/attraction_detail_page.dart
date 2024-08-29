@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'attraction_write_review.dart';
 class AttractionDetailPage extends StatelessWidget {
   const AttractionDetailPage({super.key});
 
@@ -144,8 +144,13 @@ class ReviewsTab extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             ElevatedButton(
-              onPressed: () {},
-              child: const Text('Write a review'),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) =>  AttractionWriteReviewPage()),
+                );
+              },
+              child: const Text('+ Add Review'),
             ),
             const SizedBox(height: 8),
             const ReviewCard(

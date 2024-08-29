@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tourism_app/view/review_main.dart';
 import 'login_user.dart';
 import 'user_profile.dart';
 import 'register_user.dart';
@@ -7,7 +8,10 @@ import 'calendar_main.dart';
 import 'map_popup.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  final bool isLoggedIn;
+  final Function(bool) onLoginChanged;
+
+ const HomePage({super.key, required this.isLoggedIn, required this.onLoginChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -15,32 +19,57 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('NEXPO'),
         actions: [
-          TextButton(
-            onPressed: () {
-              // TODO: Add login functionality
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LoginPage()),
-              );
-            },
-            child: const Text(
-              'LOGIN',
-              style: TextStyle(color: Colors.black),
+          if (!isLoggedIn) ...[
+            TextButton(
+              onPressed: () async {
+                final result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                );
+                if (result == true){
+                  onLoginChanged(true); //Update login state
+                }
+              },
+              child: const Text(
+                'LOGIN',
+                style: TextStyle(color: Colors.black),
+              ),
             ),
-          ),
-          TextButton(
-            onPressed: () {
-              // TODO: Add register functionality
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => RegisterUserPage()),
-              );
-            },
-            child: const Text(
-              'REGISTER',
-              style: TextStyle(color: Colors.black),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => RegisterUserPage()),
+                );
+              },
+              child: const Text(
+                'REGISTER',
+                style: TextStyle(color: Colors.black),
+              ),
             ),
-          ),
+          ] else ...[
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => UserProfilePage()),
+                );
+              },
+              child: const Text(
+                'PROFILE',
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                onLoginChanged(false); //Update login state to logout
+              },
+              child: const Text(
+                'LOGOUT',
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+          ],
         ],
       ),
       body: SingleChildScrollView(
@@ -247,7 +276,10 @@ class HomePage extends StatelessWidget {
                       onTap: () {
                         // Handle click event for Sustainability Index
                         // For example, navigate to another page or show a dialog
-
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const ReviewMainPage()),
+                        );
                       },
                       child: Card(
                         elevation: 2,
@@ -274,7 +306,7 @@ class HomePage extends StatelessWidget {
                     // TODO: Add itinerary creation functionality
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => MapPopupPage()),
+                      MaterialPageRoute(builder: (context) => const MapPopupPage()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -310,7 +342,7 @@ class HomePage extends StatelessWidget {
                     child: Card(
                       elevation: 2,
                       child: ListTile(
-                        title: Text(
+                        title: const Text(
                           'Current Visitors',
                           style: TextStyle(fontSize: 14.0),
                         ),
