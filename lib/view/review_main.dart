@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tourism_app/view/review_place.dart';
 
 class ReviewMainPage extends StatelessWidget {
   const ReviewMainPage({super.key});
@@ -10,14 +11,12 @@ class ReviewMainPage extends StatelessWidget {
         title: const Text('NEXPO'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              // TODO: Implement search functionality
-            },
-          ),
-          IconButton(
             icon: const Icon(Icons.account_circle),
             onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ReviewPlacePage()),
+              );
               // TODO: Implement profile navigation
             },
           ),
@@ -29,6 +28,26 @@ class ReviewMainPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Search',
+                    filled: true,
+                    fillColor: Colors.white,
+                    suffixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
+                  ),
+                  onSubmitted: (value){
+                    //TODO: Implement search
+                  },
+                ),
+              ),
+              const SizedBox(height: 10),
               const Text(
                 'Reviews',
                 style: TextStyle(
@@ -36,9 +55,9 @@ class ReviewMainPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 10),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: const [
                   ReviewCategoryButton(icon: Icons.park, label: 'Parks'),
                   ReviewCategoryButton(icon: Icons.restaurant, label: 'Restaurants'),
@@ -76,18 +95,24 @@ class ReviewMainPage extends StatelessWidget {
               const TopRatedPlace(
                 placeName: 'Central Park',
                 rating: '4.8 stars',
-                icon: Icons.park,
+                icon: Icons.park_outlined,
+                iconColor: Colors.green,
               ),
+              Divider(),
               const TopRatedPlace(
                 placeName: 'Italiano Pizzeria',
                 rating: '4.7 stars',
                 icon: Icons.local_pizza,
+                iconColor: Colors.orange,
               ),
+              Divider(),
               const TopRatedPlace(
                 placeName: 'Botanical Gardens',
                 rating: '4.7 stars',
                 icon: Icons.local_florist,
+                iconColor: Colors.purple,
               ),
+              Divider(),
               const SizedBox(height: 24),
               const Text(
                 'Featured Places',
@@ -110,7 +135,7 @@ class ReviewMainPage extends StatelessWidget {
                   SizedBox(width: 16), // Spacing between cards
                   Expanded(
                     child: FeaturedPlaceCard(
-                      imageUrl: 'assets/green_eats.jpg',
+                      imageUrl: 'assets/green_eats.png',
                       placeName: 'Green Eats',
                       reviewText: 'Best vegetarian restaurant',
                     ),
@@ -167,19 +192,35 @@ class ReviewCategoryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        IconButton(
-          icon: Icon(icon, size: 30),
-          onPressed: () {
-            // TODO: Filter reviews by category
-          },
-        ),
-        Text(label),
-      ],
+    return Container(
+      padding: const EdgeInsets.all(12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.grey),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, size: 40),
+          const SizedBox(height: 8),
+          Text(label),
+        ],
+      ),
+      width: 110, // Adjust width as needed
+      height: 100, // Adjust height as needed
     );
   }
 }
+
 
 class RatingFilterButton extends StatelessWidget {
   final String rating;
@@ -208,18 +249,20 @@ class TopRatedPlace extends StatelessWidget {
   final String placeName;
   final String rating;
   final IconData icon;
+  final Color iconColor;
 
   const TopRatedPlace({
     super.key,
     required this.placeName,
     required this.rating,
     required this.icon,
+    this.iconColor = Colors.black, //default color if not provided
   });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(icon, size: 40),
+      leading: Icon(icon, size: 40, color: iconColor),
       title: Text(placeName),
       subtitle: Text(rating),
       onTap: () {

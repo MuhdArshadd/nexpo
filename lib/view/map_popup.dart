@@ -16,22 +16,34 @@ class MapPopupPage extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  Container(
-                    height: 200,
-                    color: Colors.grey[300],
-                    child: const Center(child: Text('Pictures')),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(16.0), // Adjust the border radius as needed
+                    child: Container(
+                      height: 250,
+                      width: 360,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/klebang_beach.jpg'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
                   ),
                   Positioned(
                     top: 0.0,
                     left: 0.0,
                     child: const Chip(
-                      label: Text('Live: Pesta Layang-Layang'),
-                      backgroundColor: Colors.grey,
+                      label: Text(
+                          'Live: Pesta Layang-Layang',
+                        style: TextStyle(fontSize: 12),
+                      ),
+                      backgroundColor: Colors.white,
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),
                   ),
                 ],
               ),
+
               const SizedBox(height: 16.0),
               // Beach Information
               const Text(
