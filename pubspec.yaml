@@ -66,6 +66,8 @@ flutter:
     - assets/green_eats.png
     - assets/petronas_twin_towers.jpg
     - assets/klebang_beach.jpg
+    - assets/culture.jpg
+    - assets/nature.webp
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

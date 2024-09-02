@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tourism_app/view/review_main.dart';
+import 'package:tourism_app/view/custom_drawer.dart';
 import 'login_user.dart';
 import 'user_profile.dart';
 import 'register_user.dart';
@@ -10,68 +11,52 @@ import 'map_popup.dart';
 class HomePage extends StatelessWidget {
   final bool isLoggedIn;
   final Function(bool) onLoginChanged;
+  final String? profileImageUrl; // URL for the profile image
 
- const HomePage({super.key, required this.isLoggedIn, required this.onLoginChanged});
+ const HomePage({super.key, required this.isLoggedIn, required this.onLoginChanged, this.profileImageUrl});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('NEXPO'),
+        automaticallyImplyLeading: false, // This removes the hamburger icon
         actions: [
           if (!isLoggedIn) ...[
-            TextButton(
+            IconButton(
+              icon: const Icon(Icons.person, color: Colors.black),
               onPressed: () async {
                 final result = await Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) =>  LoginPage(onLoginChanged: onLoginChanged)),
+                  MaterialPageRoute(builder: (context) => LoginPage(onLoginChanged: onLoginChanged))
                 );
-                if (result == true){
-                  onLoginChanged(true); //Update login state
+                if(result == true){
+                  onLoginChanged(true); //update login status
                 }
               },
-              child: const Text(
-                'LOGIN',
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => RegisterUserPage(onLoginChanged: onLoginChanged)),
-                );
-              },
-              child: const Text(
-                'REGISTER',
-                style: TextStyle(color: Colors.black),
-              ),
             ),
           ] else ...[
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => UserProfilePage()),
+            Builder(
+              builder: (BuildContext context){
+                return IconButton(
+                  icon: CircleAvatar(
+                    backgroundImage: profileImageUrl != null
+                        ? NetworkImage(profileImageUrl!)
+                        : const AssetImage('assets/default_profile.png') as ImageProvider,
+                  ),
+                  onPressed: () {
+                    Scaffold.of(context).openEndDrawer(); // Open the side drawer
+                  },
                 );
               },
-              child: const Text(
-                'PROFILE',
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                onLoginChanged(false); //Update login state to logout
-              },
-              child: const Text(
-                'LOGOUT',
-                style: TextStyle(color: Colors.black),
-              ),
             ),
           ],
         ],
       ),
+    endDrawer: CustomDrawer( // Use the CustomDrawer widget here
+    profileImageUrl: profileImageUrl,
+    onLoginChanged: onLoginChanged,
+    ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -80,13 +65,20 @@ class HomePage extends StatelessWidget {
             children: [
               // Search Bar
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5.0),
+                padding: const EdgeInsets.symmetric(vertical: 4.0),
                 child: TextField(
                   decoration: InputDecoration(
-                    hintText: 'Search for Attractions',
-                    prefixIcon: const Icon(Icons.search),
+                    hintText: ' Search',
+                    suffixIcon: Container(
+                      margin: const EdgeInsets.all(4.0),
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(Icons.search, color: Colors.white),
+                    ),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
+                      borderRadius: BorderRadius.circular(30.0),
                     ),
                   ),
                 ),
@@ -94,7 +86,7 @@ class HomePage extends StatelessWidget {
 
               // Explore Malaysia Section
               Card(
-                elevation: 2,
+                elevation: 0,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -128,7 +120,7 @@ class HomePage extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Card(
-                      elevation: 2,
+                      elevation: 1,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -166,7 +158,7 @@ class HomePage extends StatelessWidget {
                   const SizedBox(width: 8),
                   Expanded(
                     child: Card(
-                      elevation: 2,
+                      elevation: 1,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -205,45 +197,42 @@ class HomePage extends StatelessWidget {
               ),
 
               const SizedBox(height: 16),
-
               // Fascinating Facts Section
               const Text('Fascinating Facts', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
 
-              // Culture Trivia Card with onTap functionality`
-              InkWell(
-                onTap: () {
-                  //Handle for Culture Trivia
-                },
-                child: Card(
-                  elevation: 1,
-                  child: ListTile(
-                    leading: Icon(Icons.space_dashboard, color: Colors.blue), // Space icon
-                    title: const Text('Culture Trivia'),
-                    subtitle: const Text('Learn about Malaysia\'s diverse traditions'),
-                  ),
+              // Culture Trivia
+              ListTile(
+                leading: Image.asset(
+                    'assets/culture.jpg',
+                  width: 45,
+                  height: 45,
+                  fit: BoxFit.cover,
                 ),
-              ),
-
-              const SizedBox(height: 8),
-
-              // Nature Wonders Card with onTap functionality
-              InkWell(
-                onTap: () {
-                  // Handle the click event for Nature Wonders
+                title: const Text('Culture Trivia'),
+                subtitle: const Text('Learn about Malaysia\'s diverse tradition'),
+                onTap: (){
+                  //Handle culture trivia
                 },
-                child: Card(
-                  elevation: 1,
-                  child: ListTile(
-                    leading: Icon(Icons.landscape, color: Colors.green), // Landscape icon
-                    title: const Text('Nature Wonders'),
-                    subtitle: const Text('Explore Malaysia\'s breathtaking landscapes'),
-                  ),
-                ),
               ),
+              const Divider(),
 
+              // Nature Wonders
+              ListTile(
+                leading: Image.asset(
+                  'assets/nature.webp',
+                  width: 45,
+                  height: 45,
+                  fit: BoxFit.cover,
+                ),
+                title: const Text('Nature Wonders'),
+                subtitle: const Text('Explore Malaysia\'s breathtaking landscapes'),
+                onTap: (){
+                  //Handle nature wonder
+                },
+              ),
+              const Divider(),
               const SizedBox(height: 16),
-
 
               // Quick Tips Section
               const Text('Quick Tips', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
