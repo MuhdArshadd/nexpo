@@ -36,6 +36,134 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
+  void _showSuccessDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.check_circle,
+                  color: Colors.green,
+                  size: 60.0,
+                ),
+                SizedBox(height: 16.0),
+                Text(
+                  'Success',
+                  style: TextStyle(
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 8.0),
+                Text(
+                  'Successfully login',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.grey,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 24.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context,true);
+                        Navigator.pop(context,true);
+                      },
+                      child: Text(
+                        'Dashboard',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showFailureDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          child: Container(
+            padding: const EdgeInsets.all(16.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.close,
+                  color: Colors.red,
+                  size: 50.0,
+                ),
+                SizedBox(height: 16.0),
+                Text(
+                  'Error',
+                  style: TextStyle(
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                SizedBox(height: 8.0),
+                Text(
+                  message,
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.grey,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 24.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(); // Close the dialog
+                      },
+                      child: Text(
+                        'Try Again',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+                        backgroundColor: Colors.red,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   void _validateForm() {
     final isValid = _emailController.text.isNotEmpty &&
         _passwordController.text.isNotEmpty &&
@@ -48,8 +176,9 @@ class _LoginPageState extends State<LoginPage> {
     if (_emailController.text == 'user@gmail.com' &&
         _passwordController.text == '12345678') {
       // Return true to indicate successful login
-      Navigator.pop(context,true);
+      _showSuccessDialog();
     } else {
+      _showFailureDialog('Failed to login');
       // Show an error message if the credentials are incorrect
       setState(() {
         _errorMessage = 'Incorrect email or password';
@@ -115,7 +244,7 @@ class _LoginPageState extends State<LoginPage> {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your password';
                     }
-                    if (value.length < 7) {
+                    if (value.length < 8) {
                       return 'Password must be at least 8 characters';
                     }
                     return null;

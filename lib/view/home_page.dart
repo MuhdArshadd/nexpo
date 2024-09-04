@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
                   icon: CircleAvatar(
                     backgroundImage: profileImageUrl != null
                         ? NetworkImage(profileImageUrl!)
-                        : const AssetImage('assets/default_profile.png') as ImageProvider,
+                        : const AssetImage('assets/default_profile.jpg') as ImageProvider,
                   ),
                   onPressed: () {
                     Scaffold.of(context).openEndDrawer(); // Open the side drawer

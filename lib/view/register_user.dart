@@ -119,6 +119,92 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
     );
   }
 
+  void _showFailureDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          child: Container(
+            padding: const EdgeInsets.all(16.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.close,
+                  color: Colors.red,
+                  size: 50.0,
+                ),
+                SizedBox(height: 16.0),
+                Text(
+                  'Error',
+                  style: TextStyle(
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                SizedBox(height: 8.0),
+                Text(
+                  message,
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.grey,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 24.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(); // Close the dialog
+                        Navigator.of(context).pop(); //Go back to previous page
+                        
+                      },
+                      child: Text(
+                        'Cancel',
+                        style: TextStyle(
+                          color: Colors.grey,
+                        ),
+                      ),
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+                        backgroundColor: Colors.grey.withOpacity(0.2),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(); // Close the dialog
+
+                      },
+                      child: Text(
+                        'Try Again',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+                        backgroundColor: Colors.red,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+
   void _register() {
     setState(() {
       _firstNameError = null;
@@ -163,7 +249,15 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
     }
 
     if (isValid) {
-      _showSuccessDialog();
+      // ni demo tuk kalo fail
+      bool registrationSuccess = false;
+
+      if(registrationSuccess){
+        _showSuccessDialog();
+      }
+      else {
+        _showFailureDialog("There was an issue with your registration. Please try again.");
+      }
     } else {
       setState(() {}); // Update UI to show error messages
     }
@@ -247,25 +341,25 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
-                          selectedQuestion = "What is your pet's name?";
+                          selectedQuestion = "What's your pet's name?";
                         });
                       },
                       child: Container(
                         padding: EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                          color: selectedQuestion == "What is your pet's name?"
+                          color: selectedQuestion == "What's your pet's name?"
                               ? Colors.blue.withOpacity(0.2)
                               : Colors.white,
                           border: Border.all(
-                              color: selectedQuestion == "What is your pet's name?"
+                              color: selectedQuestion == "What's your pet's name?"
                                   ? Colors.blue
                                   : Colors.grey),
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         child: Text(
-                          "What is your pet's name?",
+                          "What's your pet's name?",
                           style: TextStyle(
-                            color: selectedQuestion == "What is your pet's name?"
+                            color: selectedQuestion == "What's your pet's name?"
                                 ? Colors.blue
                                 : Colors.black,
                           ),
@@ -278,25 +372,25 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
-                          selectedQuestion = "What was your first car?";
+                          selectedQuestion = "Where were you born?";
                         });
                       },
                       child: Container(
                         padding: EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                          color: selectedQuestion == "What was your first car?"
+                          color: selectedQuestion == "Where were you born?"
                               ? Colors.blue.withOpacity(0.2)
                               : Colors.white,
                           border: Border.all(
-                              color: selectedQuestion == "What was your first car?"
+                              color: selectedQuestion == "Where were you born??"
                                   ? Colors.blue
                                   : Colors.grey),
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         child: Text(
-                          "What was your first car?",
+                          "Where were you born?",
                           style: TextStyle(
-                            color: selectedQuestion == "What was your first car?"
+                            color: selectedQuestion == "Where were you born?"
                                 ? Colors.blue
                                 : Colors.black,
                           ),
@@ -319,8 +413,18 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
               SizedBox(height: 30),
               Center(
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black,// Button color
+                    padding:
+                    const EdgeInsets.symmetric(vertical: 12.0, horizontal: 140),
+                  ),
                   onPressed: _register,
-                  child: Text('Register'),
+                  child: Text(
+                      'Register',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
             ],

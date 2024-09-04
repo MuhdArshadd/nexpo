@@ -24,7 +24,7 @@ class CustomDrawer extends StatelessWidget {
             currentAccountPicture: CircleAvatar(
               backgroundImage: profileImageUrl != null
                   ? NetworkImage(profileImageUrl!)
-                  : const AssetImage('assets/default_profile.png') as ImageProvider,
+                  : const AssetImage('assets/default_profile.jpg') as ImageProvider,
             ),
             decoration: const BoxDecoration(
               color: Colors.black,

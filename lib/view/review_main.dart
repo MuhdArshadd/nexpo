@@ -1,27 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:tourism_app/view/review_place.dart';
+import 'package:tourism_app/view/custom_drawer.dart';
 
 class ReviewMainPage extends StatelessWidget {
-  const ReviewMainPage({super.key});
+  final String? profileImageUrl; // URL for the profile image
+  const ReviewMainPage({super.key, this.profileImageUrl});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('NEXPO'),
+        automaticallyImplyLeading: false,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.account_circle),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ReviewPlacePage()),
+          Builder(
+            builder: (BuildContext context){
+              return IconButton(
+                icon: CircleAvatar(
+                  backgroundImage: profileImageUrl != null
+                      ? NetworkImage(profileImageUrl!)
+                      : const AssetImage('assets/default_profile.png') as ImageProvider,
+                ),
+                onPressed: () {
+                  //Scaffold.of(context).openEndDrawer(); // Open the side drawer
+                },
               );
-              // TODO: Implement profile navigation
             },
           ),
         ],
       ),
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(14.0),
