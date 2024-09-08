@@ -72,7 +72,7 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    TextButton(
+                    /*TextButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
@@ -86,7 +86,7 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
                         backgroundColor: Colors.grey.withOpacity(0.2),
                         padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
                       ),
-                    ),
+                    ),*/
                     ElevatedButton(
                       onPressed: () {
                         widget.onLoginChanged(true); // Update login state to true
@@ -137,7 +137,7 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
-                  Icons.close,
+                  Icons.cancel,
                   color: Colors.red,
                   size: 50.0,
                 ),
@@ -250,7 +250,7 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
 
     if (isValid) {
       // ni demo tuk kalo fail
-      bool registrationSuccess = false;
+      bool registrationSuccess = false; // nanti change kalo nk test
 
       if(registrationSuccess){
         _showSuccessDialog();

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tourism_app/view/review_attraction.dart';
 import 'package:tourism_app/view/review_main.dart';
 import 'package:tourism_app/view/custom_drawer.dart';
 import 'login_user.dart';
@@ -101,7 +102,10 @@ class HomePage extends StatelessWidget {
                     Container(
                       height: 200,
                       color: Colors.grey[300],
-                      child: const Center(child: Text('Map Placeholder')),
+                      child: Image.asset(
+                        'assets/map_example.png',
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     const Padding(
                       padding: EdgeInsets.all(16.0),
@@ -267,7 +271,7 @@ class HomePage extends StatelessWidget {
                         // For example, navigate to another page or show a dialog
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const ReviewMainPage()),
+                          MaterialPageRoute(builder: (context) => ReviewAttractionPage()),
                         );
                       },
                       child: Card(

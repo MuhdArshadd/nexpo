@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tourism_app/view/calendar_main.dart';
+import 'package:tourism_app/view/review_main.dart';
 import 'view/home_page.dart';
 import 'view/attraction_page.dart';
 //import 'restaurant_page.dart'; // Assume you have a RestaurantPage
@@ -41,6 +43,8 @@ class _MainPageState extends State<MainPage> {
     _widgetOptions = <Widget>[
       HomePage(isLoggedIn: _isLoggedIn, onLoginChanged: _handleLoginChanged),
       AttractionPage(isLoggedIn: _isLoggedIn, onLoginChanged: _handleLoginChanged),
+      ReviewMainPage(),
+      CalendarMainPage(),
       // RestaurantPage(isLoggedIn: _isLoggedIn, onLoginChanged: _handleLoginChanged), // Add the RestaurantPage when ready
     ];
   }
@@ -51,7 +55,8 @@ class _MainPageState extends State<MainPage> {
       _widgetOptions = <Widget>[
         HomePage(isLoggedIn: _isLoggedIn, onLoginChanged: _handleLoginChanged),
         AttractionPage(isLoggedIn: _isLoggedIn, onLoginChanged: _handleLoginChanged),
-        // RestaurantPage(isLoggedIn: _isLoggedIn, onLoginChanged: _handleLoginChanged), // Add the RestaurantPage when ready
+        ReviewMainPage(),
+        CalendarMainPage(),
       ];
     });
   }
@@ -67,6 +72,7 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -77,8 +83,12 @@ class _MainPageState extends State<MainPage> {
             label: 'Attractions',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.restaurant),
-            label: 'Restaurants',
+            icon: Icon(Icons.explore),
+            label: 'Discover',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_month),
+            label: 'Events',
           ),
         ],
         currentIndex: _selectedIndex,

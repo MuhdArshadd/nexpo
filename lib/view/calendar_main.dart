@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'user_profile.dart';
 
 class CalendarMainPage extends StatelessWidget {
-  const CalendarMainPage({super.key});
+  final String? profileImageUrl; // URL for the profile image
+  const CalendarMainPage({super.key,this.profileImageUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -12,27 +13,19 @@ class CalendarMainPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('NEXPO'),
         actions: [
-          TextButton(
-            onPressed: () {
-              // TODO: Implement logout functionality
-            },
-            child: const Text(
-              'LOGOUT',
-              style: TextStyle(color: Colors.black),
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              // TODO: Navigate to profile page
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => UserProfilePage()),
+          Builder(
+            builder: (BuildContext context){
+              return IconButton(
+                icon: CircleAvatar(
+                  backgroundImage: profileImageUrl != null
+                      ? NetworkImage(profileImageUrl!)
+                      : const AssetImage('assets/default_profile.jpg') as ImageProvider,
+                ),
+                onPressed: () {
+                  //Scaffold.of(context).openEndDrawer(); // Open the side drawer
+                },
               );
             },
-            child: const Text(
-              'PROFILE',
-              style: TextStyle(color: Colors.black),
-            ),
           ),
         ],
       ),
@@ -41,12 +34,23 @@ class CalendarMainPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const TextField(
-              decoration: InputDecoration(
-                hintText: 'Search for events, tags',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            // Search Bar
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: ' Search for events, categories, tags',
+                  suffixIcon: Container(
+                    margin: const EdgeInsets.all(4.0),
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(Icons.search, color: Colors.white),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
                 ),
               ),
             ),
@@ -132,7 +136,7 @@ class CalendarMainPage extends StatelessWidget {
                                   topRight: Radius.circular(8.0),
                                 ),
                                 image: DecorationImage(
-                                  image: AssetImage('assets/music_event.jpg'), // Placeholder image
+                                  image: AssetImage('assets/music_event.webp'), // Placeholder image
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -200,7 +204,7 @@ class CalendarMainPage extends StatelessWidget {
                                   topRight: Radius.circular(8.0),
                                 ),
                                 image: DecorationImage(
-                                  image: AssetImage('assets/culinary_event.jpg'), // Placeholder image
+                                  image: AssetImage('assets/culinary_event.webp'), // Placeholder image
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -302,22 +306,6 @@ class CalendarMainPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16.0),
-            Center(
-              child: OutlinedButton(
-                onPressed: () {
-                  // TODO: Implement explore more functionality
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 14.0),
-                  child: Text('Explore More'),
-                ),
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: Colors.black,
-                  backgroundColor: Colors.white,
-                  side: BorderSide(color: Colors.black),
-                ),
-              ),
-            ),
           ],
         ),
       ),

@@ -1,7 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:tourism_app/view/attraction_page.dart';
 import 'attraction_write_review.dart';
-class AttractionDetailPage extends StatelessWidget {
+class AttractionDetailPage extends StatefulWidget {
   const AttractionDetailPage({super.key});
+
+  @override
+  _AttractionDetailPageState createState() => _AttractionDetailPageState();
+}
+
+class _AttractionDetailPageState extends State<AttractionDetailPage> {
+  int _selectedIndex = 1; // Default to the 'Attractions' tab
+
+  // Navigation logic for the BottomNavigationBar
+  void _onItemTapped(int index) {
+    if (index == _selectedIndex) {
+      // If the user taps on the already selected 'Attractions' tab, navigate to the AttractionPage
+      if (index == 1) {
+        //go to attraction page
+      }
+    } else {
+      setState(() {
+        _selectedIndex = index;
+      });
+
+      // You can add navigation for other tabs here if necessary
+      if (index == 0) {
+        // Navigate to Home Page
+        // Example: Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+      } else if (index == 2) {
+        // Navigate to Discover Page
+        // Example: Navigator.push(context, MaterialPageRoute(builder: (context) => DiscoverPage()));
+      } else if (index == 3) {
+        // Navigate to Events Page
+        // Example: Navigator.push(context, MaterialPageRoute(builder: (context) => EventsPage()));
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,9 +89,34 @@ class AttractionDetailPage extends StatelessWidget {
           ),
         ],
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,  // Fixed type for more than 3 items
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.place),
+            label: 'Attractions',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.explore),
+            label: 'Discover',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_month),
+            label: 'Events',
+          ),
+        ],
+        currentIndex: _selectedIndex,  // Highlight the selected tab
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,  // Handle tap and navigation
+      ),
     );
   }
 }
+
 
 class OverviewTab extends StatelessWidget {
   const OverviewTab({super.key});

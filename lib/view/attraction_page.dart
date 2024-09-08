@@ -3,73 +3,57 @@ import 'register_user.dart';
 import 'login_user.dart';
 import 'attraction_detail_page.dart';
 import 'user_profile.dart';
+import 'package:tourism_app/view/custom_drawer.dart';
 
 class AttractionPage extends StatelessWidget {
   final bool isLoggedIn;
   final Function(bool) onLoginChanged;
+  final String? profileImageUrl; // URL for the profile image
 
-  const AttractionPage({super.key, required this.isLoggedIn, required this.onLoginChanged});
+  const AttractionPage({super.key, required this.isLoggedIn, required this.onLoginChanged, this.profileImageUrl});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('NEXPO'),
+        automaticallyImplyLeading: false, // This removes the hamburger icon
         actions: [
           if (!isLoggedIn) ...[
-            TextButton(
+            IconButton(
+              icon: const Icon(Icons.person, color: Colors.black),
               onPressed: () async {
                 final result = await Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginPage(onLoginChanged: onLoginChanged)),
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage(onLoginChanged: onLoginChanged))
                 );
-
-                if (result == true) {
-                  onLoginChanged(true); // Update login state
+                if(result == true){
+                  onLoginChanged(true); //update login status
                 }
               },
-              child: const Text(
-                'LOGIN',
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => RegisterUserPage(onLoginChanged: onLoginChanged)),
-                );
-              },
-              child: const Text(
-                'REGISTER',
-                style: TextStyle(color: Colors.black),
-              ),
             ),
           ] else ...[
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => UserProfilePage()),
+            Builder(
+              builder: (BuildContext context){
+                return IconButton(
+                  icon: CircleAvatar(
+                    backgroundImage: profileImageUrl != null
+                        ? NetworkImage(profileImageUrl!)
+                        : const AssetImage('assets/default_profile.jpg') as ImageProvider,
+                  ),
+                  onPressed: () {
+                    Scaffold.of(context).openEndDrawer(); // Open the side drawer
+                  },
                 );
               },
-              child: const Text(
-                'PROFILE',
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                onLoginChanged(false); // Update login state to logged out
-              },
-              child: const Text(
-                'LOGOUT',
-                style: TextStyle(color: Colors.black),
-              ),
             ),
           ],
         ],
       ),
+    endDrawer: CustomDrawer( // Use the CustomDrawer widget here
+    profileImageUrl: profileImageUrl,
+    onLoginChanged: onLoginChanged,
+    ),
       // The rest of the AttractionPage UI
       body: Padding(
         padding: const EdgeInsets.all(8.0),

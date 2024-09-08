@@ -79,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.pop(context,true);
                       },
                       child: Text(
-                        'Dashboard',
+                        'Continue',
                         style: TextStyle(color: Colors.white),
                       ),
                       style: ElevatedButton.styleFrom(

@@ -19,7 +19,7 @@ class ReviewMainPage extends StatelessWidget {
                 icon: CircleAvatar(
                   backgroundImage: profileImageUrl != null
                       ? NetworkImage(profileImageUrl!)
-                      : const AssetImage('assets/default_profile.png') as ImageProvider,
+                      : const AssetImage('assets/default_profile.jpg') as ImageProvider,
                 ),
                 onPressed: () {
                   //Scaffold.of(context).openEndDrawer(); // Open the side drawer
@@ -167,22 +167,6 @@ class ReviewMainPage extends StatelessWidget {
             ],
           ),
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.explore),
-            label: 'Discover',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favorites',
-          ),
-        ],
-        selectedItemColor: Colors.amber[800],
-        onTap: (int index) {
-          // TODO: Implement navigation
-        },
       ),
     );
   }
