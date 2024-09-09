@@ -270,10 +270,7 @@ class HomePageLogin extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     // TODO: Add itinerary creation functionality
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const CalendarMainPage()),
-                    );
+
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,

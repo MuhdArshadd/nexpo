@@ -172,6 +172,7 @@ class _LoginPageState extends State<LoginPage> {
     _isButtonEnabled.value = isValid;
   }
 
+  //Ni tuk cek credential dia tuk gi kat success or failure
   void _login() {
     if (_emailController.text == 'user@gmail.com' &&
         _passwordController.text == '12345678') {

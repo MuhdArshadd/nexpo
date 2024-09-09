@@ -43,8 +43,8 @@ class _MainPageState extends State<MainPage> {
     _widgetOptions = <Widget>[
       HomePage(isLoggedIn: _isLoggedIn, onLoginChanged: _handleLoginChanged),
       AttractionPage(isLoggedIn: _isLoggedIn, onLoginChanged: _handleLoginChanged),
-      ReviewMainPage(),
-      CalendarMainPage(),
+      ReviewMainPage(isLoggedIn: _isLoggedIn, onLoginChanged: _handleLoginChanged),
+      CalendarMainPage(isLoggedIn: _isLoggedIn, onLoginChanged: _handleLoginChanged),
       // RestaurantPage(isLoggedIn: _isLoggedIn, onLoginChanged: _handleLoginChanged), // Add the RestaurantPage when ready
     ];
   }
@@ -55,8 +55,8 @@ class _MainPageState extends State<MainPage> {
       _widgetOptions = <Widget>[
         HomePage(isLoggedIn: _isLoggedIn, onLoginChanged: _handleLoginChanged),
         AttractionPage(isLoggedIn: _isLoggedIn, onLoginChanged: _handleLoginChanged),
-        ReviewMainPage(),
-        CalendarMainPage(),
+        ReviewMainPage(isLoggedIn: _isLoggedIn, onLoginChanged: _handleLoginChanged),
+        CalendarMainPage(isLoggedIn: _isLoggedIn, onLoginChanged: _handleLoginChanged),
       ];
     });
   }

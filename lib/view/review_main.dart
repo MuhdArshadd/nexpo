@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:tourism_app/view/review_place.dart';
 import 'package:tourism_app/view/custom_drawer.dart';
 
+import 'login_user.dart';
+
 class ReviewMainPage extends StatelessWidget {
+  final bool isLoggedIn;
+  final Function(bool) onLoginChanged;
   final String? profileImageUrl; // URL for the profile image
-  const ReviewMainPage({super.key, this.profileImageUrl});
+  const ReviewMainPage({super.key,required this.isLoggedIn, required this.onLoginChanged, this.profileImageUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -13,21 +17,40 @@ class ReviewMainPage extends StatelessWidget {
         title: const Text('NEXPO'),
         automaticallyImplyLeading: false,
         actions: [
-          Builder(
-            builder: (BuildContext context){
-              return IconButton(
-                icon: CircleAvatar(
-                  backgroundImage: profileImageUrl != null
-                      ? NetworkImage(profileImageUrl!)
-                      : const AssetImage('assets/default_profile.jpg') as ImageProvider,
-                ),
-                onPressed: () {
-                  //Scaffold.of(context).openEndDrawer(); // Open the side drawer
-                },
-              );
-            },
-          ),
+          if(!isLoggedIn) ...[
+            IconButton(
+              icon: const Icon(Icons.person, color: Colors.black),
+              onPressed: () async {
+                final result = await Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage(onLoginChanged: onLoginChanged))
+                );
+                if(result == true){
+                  onLoginChanged(true); //update login status
+                }
+              },
+            ),
+          ] else ...[
+            Builder(
+              builder: (BuildContext context){
+                return IconButton(
+                  icon: CircleAvatar(
+                    backgroundImage: profileImageUrl != null
+                        ? NetworkImage(profileImageUrl!)
+                        : const AssetImage('assets/default_profile.jpg') as ImageProvider,
+                  ),
+                  onPressed: () {
+                    Scaffold.of(context).openEndDrawer(); // Open the side drawer
+                  },
+                );
+              },
+            ),
+          ],
         ],
+      ),
+      endDrawer: CustomDrawer( // Use the CustomDrawer widget here
+        profileImageUrl: profileImageUrl,
+        onLoginChanged: onLoginChanged,
       ),
 
       body: SingleChildScrollView(

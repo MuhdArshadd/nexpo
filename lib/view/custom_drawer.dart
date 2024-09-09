@@ -41,13 +41,10 @@ class CustomDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.rate_review),
-            title: const Text('Reviews'),
+            leading: const Icon(Icons.favorite),
+            title: const Text('Favourite Places'),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ReviewMainPage()),
-              );
+
             },
           ),
           ListTile(
@@ -63,7 +60,7 @@ class CustomDrawer extends StatelessWidget {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 35),
                 ),
                 onPressed: () {
                   onLoginChanged(false); // Log out action
