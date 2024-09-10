@@ -20,6 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   final ValueNotifier<bool> _isButtonEnabled = ValueNotifier(false);
   String? _errorMessage;
 
+  bool _isPasswordVisible = false; //to toggle password visibility
 
   @override
   void initState() {
@@ -234,13 +235,24 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 16.0),
                 TextFormField(
                   controller: _passwordController,
-                  decoration: const InputDecoration(
+                  obscureText: !_isPasswordVisible, //this will toggle password visible
+                  decoration: InputDecoration(
                     labelText: 'Password',
                     hintText: 'Enter your password',
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
                     helperText: 'Password must be at least 8 characters',
+                    suffixIcon: IconButton(
+                        icon: Icon(
+                          _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                        ),
+                      onPressed: (){
+                          setState(() {
+                            _isPasswordVisible = !_isPasswordVisible;
+                          });
+                      },
+                    ),
                   ),
-                  obscureText: true,
+                  //obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your password';

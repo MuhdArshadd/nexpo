@@ -25,6 +25,8 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
   String? _answerError;
   String? _questionError;
 
+  bool _isPasswordVisible = false; //to toggle password visibility
+
   @override
   void dispose() {
     _firstNameController.dispose();
@@ -314,14 +316,25 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
               SizedBox(height: 14),
               TextField(
                 controller: _passwordController,
+                obscureText: !_isPasswordVisible, //this will toggle password visible
                 decoration: InputDecoration(
                   labelText: 'Password',
                   hintText: 'Enter your password',
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                   helperText: 'Password must be at least 8 characters',
                   errorText: _passwordError,
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                    ),
+                    onPressed: (){
+                      setState(() {
+                        _isPasswordVisible = !_isPasswordVisible;
+                      });
+                    },
+                  ),
                 ),
-                obscureText: true,
+                //obscureText: true,
               ),
               SizedBox(height: 14),
               Text(
