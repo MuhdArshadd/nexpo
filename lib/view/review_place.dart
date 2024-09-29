@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tourism_app/view/review_write_review.dart';
 
 class ReviewPlacePage extends StatelessWidget {
   const ReviewPlacePage({super.key});
@@ -126,7 +127,7 @@ class ReviewPlacePage extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 24),
-              const Row(
+               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
@@ -136,13 +137,23 @@ class ReviewPlacePage extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    '+ Add Review',
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
+                  TextButton(
+                    child: Text(
+                      '+ Add Review',
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
                     ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ReviewWriteReviewPage(),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),

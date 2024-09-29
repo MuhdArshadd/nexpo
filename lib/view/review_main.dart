@@ -55,23 +55,26 @@ class ReviewMainPage extends StatelessWidget {
 
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(14.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: TextField(
                   decoration: InputDecoration(
-                    hintText: 'Search',
-                    filled: true,
-                    fillColor: Colors.white,
-                    suffixIcon: Icon(Icons.search),
+                    hintText: ' Search for reviews',
+                    suffixIcon: Container(
+                      margin: const EdgeInsets.all(4.0),
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(Icons.search, color: Colors.white),
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30.0),
-
                     ),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
                   ),
                   onSubmitted: (value){
                     //TODO: Implement search
@@ -282,6 +285,12 @@ class TopRatedPlace extends StatelessWidget {
       subtitle: Text(rating),
       onTap: () {
         // TODO: Navigate to the place details
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ReviewPlacePage(),
+          ),
+        );
       },
     );
   }

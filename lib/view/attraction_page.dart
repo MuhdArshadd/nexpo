@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'register_user.dart';
 import 'login_user.dart';
 import 'attraction_detail_page.dart';
 import 'user_profile.dart';
@@ -63,12 +62,22 @@ class AttractionPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: TextField(
                 decoration: InputDecoration(
-                  hintText: 'Search',
-                  prefixIcon: const Icon(Icons.search),
+                  hintText: ' Search for attractions',
+                  suffixIcon: Container(
+                    margin: const EdgeInsets.all(4.0),
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(Icons.search, color: Colors.white),
+                  ),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+                    borderRadius: BorderRadius.circular(30.0),
                   ),
                 ),
+                onSubmitted: (value){
+                  //TODO: Implement search
+                },
               ),
             ),
             const SizedBox(height: 10),
