@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:tourism_app/view/calendar_view.dart';
 import 'custom_drawer.dart';
 import 'login_user.dart';
 import 'user_profile.dart';
@@ -114,6 +115,12 @@ class CalendarMainPage extends StatelessWidget {
                   ),
                   onTap: () {
                     // TODO: Navigate to event details
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const CalendarViewPage(),
+                      ),
+                    );
                   },
                 ),
               ],

@@ -74,6 +74,7 @@ flutter:
     - assets/map_example.png
     - assets/music_event.webp
     - assets/culinary_event.webp
+    - assets/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
